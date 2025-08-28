@@ -1,0 +1,15 @@
+final List<Map<String, String>> countries = [
+  {"name": "Egypt", "flag": "🇪🇬"},
+  {"name": "Saudi Arabia", "flag": "🇸🇦"},
+  {"name": "United States", "flag": "🇺🇸"},
+  {"name": "United Kingdom", "flag": "🇬🇧"},
+  {"name": "France", "flag": "🇫🇷"},
+  {"name": "Germany", "flag": "🇩🇪"},
+  {"name": "Italy", "flag": "🇮🇹"},
+  {"name": "Spain", "flag": "🇪🇸"},
+  {"name": "Brazil", "flag": "🇧🇷"},
+  {"name": "Japan", "flag": "🇯🇵"},
+  {"name": "China", "flag": "🇨🇳"},
+  {"name": "Turkey", "flag": "🇹🇷"},
+  {"name": "UAE", "flag": "🇦🇪"},
+];
