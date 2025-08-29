@@ -43,8 +43,8 @@ lib/
 
 ## Requirements
 
-- **Flutter SDK**: 3.9.0 (or above)
-- **Dart**: 3.9.0 (or above)
+- **Flutter SDK**
+- **Dart**
 
 ---
 
