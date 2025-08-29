@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:radio_app/core/helper/spacing.dart';
-import 'package:radio_app/feature/settings/ui/test.dart';
 import 'package:radio_app/feature/settings/ui/widget/country_swiper.dart';
 import 'package:radio_app/core/helper/extensions.dart';
 import '../../../core/helper/functions.dart';
@@ -94,17 +93,6 @@ class SettingsScreen extends StatelessWidget {
                         const Divider(),
                       ],
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ColorSchemePreview(),
-                        ),
-                      );
-                    },
-                    icon: Icon(Bootstrap.palette),
                   ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 16.sp),

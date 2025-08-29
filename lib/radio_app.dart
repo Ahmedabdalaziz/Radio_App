@@ -1,3 +1,4 @@
+import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart'
     show
         StatelessWidget,
@@ -10,11 +11,14 @@ import 'package:flutter/material.dart'
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:radio_app/core/routing/app_routing.dart';
 import 'package:radio_app/feature/home/ui/main_screen.dart';
 
+import 'core/routing/routs.dart';
 import 'core/theming/theme.dart';
 import 'feature/settings/logic/theme/theme_cubit.dart';
 import 'feature/settings/logic/localization/localization_cubit.dart';
+import 'feature/splash/ui/splash_screen.dart';
 import 'generated/l10n.dart';
 
 class RadioApp extends StatelessWidget {
@@ -22,6 +26,7 @@ class RadioApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppRouter appRouter = AppRouter();
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => ThemeCubit()..loadTheme()),
@@ -61,12 +66,15 @@ class RadioApp extends StatelessWidget {
                     locale: currentLocale,
                     theme: lightTheme,
                     darkTheme: darkTheme,
+                    themeAnimationCurve: Curves.easeInOutCubic,
+                    themeAnimationDuration: const Duration(milliseconds: 1500),
                     themeMode: currentThemeMode,
                     debugShowCheckedModeBanner: false,
                     home: child,
+                    onGenerateRoute: appRouter.generateRoute,
+                    initialRoute: Routing.splash,
                   );
                 },
-                child: MainScreen(),
               );
             },
           );
