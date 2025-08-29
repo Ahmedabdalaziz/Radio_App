@@ -122,12 +122,6 @@ Users can switch themes from the **Settings Screen**.
 
 ---
 
-## Screenshots
-
-*(Add your screenshots here if available)*
-
----
-
 ## License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
