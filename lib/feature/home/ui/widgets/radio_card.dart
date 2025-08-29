@@ -3,22 +3,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
 
+import 'background_image.dart';
+
 class RadioCard extends StatelessWidget {
   final String name;
   final String image;
-  final VoidCallback? onPlay;
+  final VoidCallback? onPlayPause;
+  final bool isPlaying;
 
   const RadioCard({
     super.key,
     required this.name,
     required this.image,
-    this.onPlay,
+    this.onPlayPause,
+    this.isPlaying = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
       decoration: BoxDecoration(
@@ -35,10 +38,8 @@ class RadioCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(24.r),
-            child: _buildBackgroundImage(context),
+            child: backgroundImage(context, image),
           ),
-
-          // Gradient Overlay
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24.r),
@@ -54,7 +55,6 @@ class RadioCard extends StatelessWidget {
               ),
             ),
           ),
-
           Padding(
             padding: EdgeInsets.all(24.w),
             child: Column(
@@ -96,7 +96,7 @@ class RadioCard extends StatelessWidget {
                 SizedBox(height: 20.h),
                 Center(
                   child: GestureDetector(
-                    onTap: onPlay,
+                    onTap: onPlayPause,
                     child: Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -104,7 +104,9 @@ class RadioCard extends StatelessWidget {
                       ),
                       padding: EdgeInsets.all(8.w),
                       child: Icon(
-                        Bootstrap.play_circle_fill,
+                        isPlaying
+                            ? Bootstrap.pause_circle_fill
+                            : Bootstrap.play_circle_fill,
                         size: 70.sp,
                         color: theme.colorScheme.primary,
                       ),
@@ -116,67 +118,6 @@ class RadioCard extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildBackgroundImage(BuildContext context) {
-    return Image.network(
-      image,
-      height: double.infinity,
-      width: double.infinity,
-      fit: BoxFit.cover,
-      loadingBuilder: (context, child, loadingProgress) {
-        if (loadingProgress == null) return child;
-
-        return Container(
-          height: double.infinity,
-          width: double.infinity,
-          color: Theme.of(context).colorScheme.surfaceVariant,
-          child: Center(
-            child: CircularProgressIndicator(
-              value: loadingProgress.expectedTotalBytes != null
-                  ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes!
-                  : null,
-              strokeWidth: 3,
-            ),
-          ),
-        );
-      },
-      errorBuilder: (context, error, stackTrace) {
-        return Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Theme.of(context).colorScheme.primaryContainer,
-                Theme.of(context).colorScheme.secondaryContainer,
-              ],
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Bootstrap.broadcast,
-                size: 80.sp,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              SizedBox(height: 16.h),
-              Text(
-                'Radio Station',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

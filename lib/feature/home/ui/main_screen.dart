@@ -19,42 +19,59 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [
-    BlocProvider(create: (_) => getIt<StationCubit>(), child: HomeScreen()),
-    FavoritesScreen(),
-    SettingsScreen(),
-  ];
+  late final StationCubit stationCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    stationCubit = getIt<StationCubit>();
+  }
+
+  @override
+  void dispose() {
+    stationCubit.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     S string = S.of(context);
 
-    return Scaffold(
-      body: _pages[_currentIndex],
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _currentIndex,
-        onDestinationSelected: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        destinations: [
-          NavigationDestination(
-            icon: Icon(Bootstrap.house),
-            selectedIcon: Icon(Bootstrap.house_fill),
-            label: string.navigationBarTitleMain,
-          ),
-          NavigationDestination(
-            icon: Icon(Bootstrap.heart),
-            selectedIcon: Icon(Bootstrap.heart_fill),
-            label: string.navigationBarTitleFavorites,
-          ),
-          NavigationDestination(
-            icon: Icon(Bootstrap.gear),
-            selectedIcon: Icon(Bootstrap.gear_fill),
-            label: string.navigationBarTitleSettings,
-          ),
-        ],
+    final List<Widget> _pages = [
+      HomeScreen(),
+      FavoritesScreen(),
+      SettingsScreen(),
+    ];
+
+    return BlocProvider.value(
+      value: stationCubit,
+      child: Scaffold(
+        body: _pages[_currentIndex],
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: _currentIndex,
+          onDestinationSelected: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          destinations: [
+            NavigationDestination(
+              icon: Icon(Bootstrap.house),
+              selectedIcon: Icon(Bootstrap.house_fill),
+              label: string.navigationBarTitleMain,
+            ),
+            NavigationDestination(
+              icon: Icon(Bootstrap.heart),
+              selectedIcon: Icon(Bootstrap.heart_fill),
+              label: string.navigationBarTitleFavorites,
+            ),
+            NavigationDestination(
+              icon: Icon(Bootstrap.gear),
+              selectedIcon: Icon(Bootstrap.gear_fill),
+              label: string.navigationBarTitleSettings,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -16,6 +16,7 @@ ResponseStationModel _$ResponseStationModelFromJson(
   favicon: json['favicon'] as String?,
   tags: json['tags'] as String?,
   codec: json['codec'] as String?,
+  country: json['country'] as String?,
 );
 
 Map<String, dynamic> _$ResponseStationModelToJson(
@@ -28,4 +29,5 @@ Map<String, dynamic> _$ResponseStationModelToJson(
   'favicon': instance.favicon,
   'tags': instance.tags,
   'codec': instance.codec,
+  'country': instance.country,
 };

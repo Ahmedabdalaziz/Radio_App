@@ -12,6 +12,7 @@ class ResponseStationModel {
   String? favicon;
   String? tags;
   String? codec;
+  String? country;
 
   ResponseStationModel({
     this.name,
@@ -21,6 +22,7 @@ class ResponseStationModel {
     this.favicon,
     this.tags,
     this.codec,
+    this.country,
   });
 
   factory ResponseStationModel.fromJson(Map<String, dynamic> json) =>

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:radio_app/core/helper/extensions.dart';
 import 'package:radio_app/feature/home/logic/station_cubit.dart';
 import 'package:radio_app/feature/home/logic/station_state.dart';
@@ -30,7 +31,17 @@ class _HomeScreenState extends State<HomeScreen> {
     final cubit = context.read<StationCubit>();
     final string = S.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text(string.radioStations)),
+      appBar: AppBar(
+        title: Text(string.radioStations),
+        actions: [
+          IconButton(
+            icon: const Icon(Bootstrap.arrow_clockwise),
+            onPressed: () {
+              context.read<StationCubit>().fetchStations();
+            },
+          ),
+        ],
+      ),
       body: BlocConsumer<StationCubit, StationState>(
         listener: (context, state) {
           if (state.error != null) {
@@ -52,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
 
-          if (state.stations!.isEmpty) {
+          if (state.stations.isEmpty) {
             return EmptyWidget(onRefresh: () => cubit.fetchStations());
           }
           return StationsSwiperWidget(stations: state.stations);
